@@ -313,7 +313,7 @@ width: 100%;
 margin: 0;
 max-width: 1903px;
 max-height: 820px;
-height: 100%;
+/* height: 100%; */
 }
 
 #VideoOptions-container {
