@@ -21,7 +21,6 @@ width: 100%;
 
 .video-container {
 width: 100%;
-max-width: 1903px;
 height: 820px;
 max-height: 820px;
 background: rgb(238,174,202);
@@ -35,9 +34,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca",endCo
 width: 1475px;
 height: 820px;
 margin: 0;        
-position: absolute;
+position: relative;
 right: 0px;
-top: 170px;
+top: 148pxpx;
 border-radius: 20px;
 }
 
