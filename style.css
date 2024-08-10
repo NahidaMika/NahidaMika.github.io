@@ -169,7 +169,7 @@ text-align: center;
 
 div#Final {
 background-color: black;
-width: 2400px;
+width: 100%;
 height: 500px;
 margin: 0;
 }
@@ -183,7 +183,7 @@ right: 100px;
 div#divide {
 background-color:rgb(199, 204, 204);
 height: 200px;
-width: 240000px;
+width: 100%;
 }       
 
 div#ToDoList {
