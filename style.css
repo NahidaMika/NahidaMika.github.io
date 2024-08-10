@@ -15,7 +15,8 @@ margin:0;
 
 figure {
 margin: 0;
-height: 500;
+height: 200px;
+width: 100%;
 }
 
 .video-container {
