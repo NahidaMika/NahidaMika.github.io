@@ -49,10 +49,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca",endCo
 }
                 
 #MusicVideo {
-width: 1475px;
+width: 77.631578947% /*1475px*/;
 height: 820px;
 margin: 0;        
-position: relative;
+position: absolute;
 right: 0px;
 top: 148px;
 border-radius: 20px;
