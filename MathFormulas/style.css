@@ -1,0 +1,42 @@
+html {
+    /*background: rgb(238,174,202);
+    background: -moz-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca",endColorstr="#94bbe9",GradientType=1);*/
+    width: 100%;
+}
+head {
+    margin: 0%;
+}
+body {
+    margin: 0%;
+}
+.mathformulas {
+    font-weight: bold;
+    font-size: 150%;
+}
+.thirdsemester {
+    font-size: 150%;
+    margin-top: 1%;
+}
+.firstpartial {
+    font-size: 150%;
+    margin-top: 2%;
+}
+.coordinateplane {
+    font-size: 125%;
+    margin-top: 1%;
+}
+.distanceA {
+    color: blue;
+}
+.distanceB {
+    color: blue;
+}
+.distanceFormula {
+    margin-top: 5%;
+}
+* {
+    margin: 0%;
+}
