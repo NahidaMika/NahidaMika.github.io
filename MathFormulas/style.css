@@ -35,7 +35,10 @@ body {
     color: blue;
 }
 .distanceFormula {
-    margin-top: 5%;
+    margin-top: 2%;
+    font-size: 125%;
+    color: blue;
+    margin-left: 10%;
 }
 * {
     margin: 0%;
