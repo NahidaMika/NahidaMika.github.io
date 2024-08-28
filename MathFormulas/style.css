@@ -43,3 +43,15 @@ body {
 * {
     margin: 0%;
 }
+#result {
+    background-color: transparent;
+    border-color: black ;
+    resize: none;
+}
+#calculate {
+    border-color:white;
+}
+.CalculatorDistance {
+    margin-top: 2%;
+
+}

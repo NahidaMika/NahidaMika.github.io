@@ -8,7 +8,7 @@
     <meta name="description" content="This is just to Save the Formulas given in math class">
     <meta name="author" content="Nahida">
     <title class="Editor">Math Formulas</title>
-    <script src="MainScript.js" defer></script>
+    <script src="script.js" defer></script>
     <link rel="stylesheet" type="text/css" href="style.css">  
   </head>
   <body>
@@ -33,6 +33,17 @@
             <p>The distance between the points <strong class="distanceA">A(x₁ , y₁)</strong> and <strong class="distanceB">B(x₂ , y₂)</strong> is given by the following formula:</p>
             <div class="distanceFormula">
               <p>d(A ,B) = √(x₂ - x₁)² + (y₂ - y₁)²</p>
+              <div class="CalculatorDistance">
+                
+                  <input type="text" id="x1" placeholder="x₁">
+                  <input type="text" id="x2" placeholder="x₂">
+                  <input type="text" id="y1" placeholder="y₁">
+                  <input type="text" id="y2" placeholder="y₂">
+                  <button id="calculate" onclick="calculateDistanceFormula()">Calculate</button>
+                <div>
+                  <textarea id="result" cols="30" rows="1" readonly placeholder="Result"></textarea>
+                </div>
+              </div>
             </div>
           </div>
       </div>
