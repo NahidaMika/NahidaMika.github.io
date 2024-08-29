@@ -267,25 +267,18 @@ function calculateDistanceFormula() {
     }
 }
 function calculateAreaFormula() {
-
-    if (X4Area.value.length < 0 && Y4Area.value.length < 0) {
-
-        var operation_result1 = ((Y1Area.value*X2Area.value)+(Y2Area.value*X3Area.value)+(Y3Area.value*X1Area.value))
-
-        var operation_result2 = ((Y1Area.value*X3Area.value)+(Y3Area.value*X2Area.value)+(Y2Area.value*X1Area.value))
-
-        var final_result = operation_result1 - operation_result2  
-
+    if (X4Area.value.length > 0 && Y4Area.value.length > 0) {
+        // x4 and y4 are greater than 0
+        var operation_result1 = ((Y1Area.value * X2Area.value) + (Y2Area.value * X3Area.value) + (Y3Area.value * X4Area.value) + (Y4Area.value * X1Area.value));
+        var operation_result2 = ((Y1Area.value * X4Area.value) + (Y4Area.value * X3Area.value) + (Y3Area.value * X2Area.value) + (Y2Area.value * X1Area.value));
+        var final_result = operation_result1 - operation_result2;
         ResultArea.value = final_result + " sq. units";
-
-    } else if (X4Area.value.length > 0 && Y4Area.value.length > 0) {// x4 and x4 length has to be greater than 0
-
-        var operation_result1 =((Y1Area.value*X2Area.value)+(Y2Area.value*X3Area.value)+(Y3Area.value*X4Area.value)+(Y4Area.value*X1Area.value))
-
-        var operation_result2 = ((Y1Area.value*X4Area.value)+(Y4Area.value*X3Area.value)+(Y3Area.value*X2Area.value)+(Y2Area.value*X1Area.value))
-
-        var final_result = operation_result1 - operation_result2
-
+    } else {
+        // x4 and y4 are not greater than 0
+        var operation_result1 = ((Y1Area.value * X2Area.value) + (Y2Area.value * X3Area.value) + (Y3Area.value * X1Area.value));
+        var operation_result2 = ((Y1Area.value * X3Area.value) + (Y3Area.value * X2Area.value) + (Y2Area.value * X1Area.value));
+        var final_result = operation_result1 - operation_result2;
         ResultArea.value = final_result + " sq. units";
     }
 }
+
