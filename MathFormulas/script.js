@@ -1,14 +1,40 @@
+//First calculator elements
 var X1 = document.getElementById("x1");
 var X2 = document.getElementById("x2");
 var Y1 = document.getElementById("y1");
 var Y2 = document.getElementById("y2");
-var Result = document.getElementById("result");
+var Result = document.getElementById("resultDistance");
+//Second calculator elements
+var X1Area = document.getElementById("x1Area");
+var X2Area = document.getElementById("x2Area");
+var X3Area = document.getElementById("x3Area");
+var X4Area = document.getElementById("x4Area");
+var Y1Area = document.getElementById("y1Area");
+var Y2Area = document.getElementById("y2Area");
+var Y3Area = document.getElementById("y3Area");
+var Y4Area = document.getElementById("y4Area");
+var ResultArea = document.getElementById("resultArea");
 
+//clear when loaded 
 Result.value = "";
 X1.value = "";
 X2.value = "";
 Y1.value = "";
 Y2.value = "";
+
+X1Area.value ="";
+X2Area.value ="";
+X3Area.value ="";
+X4Area.value ="";
+
+Y1Area.value ="";
+Y2Area.value ="";
+Y3Area.value ="";
+Y4Area.value ="";
+
+ResultArea.value = "";
+
+
 
 function calculateDistanceFormula() {
 
@@ -240,4 +266,26 @@ function calculateDistanceFormula() {
 
     }
 }
+function calculateAreaFormula() {
 
+    if (X4Area.value.length < 0 && Y4Area.value.length < 0) {
+
+        var operation_result1 = ((Y1Area.value*X2Area.value)+(Y2Area.value*X3Area.value)+(Y3Area.value*X1Area.value))
+
+        var operation_result2 = ((Y1Area.value*X3Area.value)+(Y3Area.value*X2Area.value)+(Y2Area.value*X1Area.value))
+
+        var final_result = operation_result1 - operation_result2  
+
+        ResultArea.value = final_result + " sq. units";
+
+    } else if (X4Area.value.length > 0 && Y4Area.value.length > 0) {// x4 and x4 length has to be greater than 0
+
+        var operation_result1 =((Y1Area.value*X2Area.value)+(Y2Area.value*X3Area.value)+(Y3Area.value*X4Area.value)+(Y4Area.value*X1Area.value))
+
+        var operation_result2 = ((Y1Area.value*X4Area.value)+(Y4Area.value*X3Area.value)+(Y3Area.value*X2Area.value)+(Y2Area.value*X1Area.value))
+
+        var final_result = operation_result1 - operation_result2
+
+        ResultArea.value = final_result + " sq. units";
+    }
+}

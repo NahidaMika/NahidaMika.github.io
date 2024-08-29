@@ -46,13 +46,16 @@ body {
 * {
     margin: 0%;
 }
-#result {
+.result {
     background-color: transparent;
     border-color: black ;
     resize: none;
 }
 #calculate {
     border-color:white;
+}
+#calculateArea {
+    border-color: white;
 }
 .CalculatorDistance {
     margin-top: 2%;
@@ -65,4 +68,16 @@ body {
 }
 .perimeterandareaformula {
     margin-left: 10%;
+}
+.perimeterandareaformulaimage {
+    width: 40%;
+}
+.perimeterandareaformulaimage2 {
+    width: 50%;
+}
+.perimeterandareaCalculator {
+    margin-top: 2%;
+}
+.perimeterandareaCalculator2 {
+    margin-top: 1%;
 }
