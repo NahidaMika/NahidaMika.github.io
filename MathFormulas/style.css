@@ -28,6 +28,9 @@ body {
     font-size: 125%;
     margin-top: 1%;
 }
+.CoordinatePlane {
+    margin-bottom: 1%;
+}
 .distanceA {
     color: blue;
 }
@@ -53,5 +56,13 @@ body {
 }
 .CalculatorDistance {
     margin-top: 2%;
+    margin-bottom: 2%;
 
+}
+.perimeterandarea {
+    font-size: 125%;
+
+}
+.perimeterandareaformula {
+    margin-left: 10%;
 }
