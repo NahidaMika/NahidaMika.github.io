@@ -12,20 +12,28 @@
     <link rel="stylesheet" type="text/css" href="style.css">  
   </head>
   <body>
-    <div class="mathformulas">
+    <div class="login" id="loginDiv">
+      <h2>Login</h2>
+      <input type="text" id="username" class="username" placeholder="Enter Username">
+      <input type="password" id="password" class="password" placeholder="Enter Password">
+      <button id="loginButton" onclick="login()">Login</button>
+      <textarea class="successorno" id="successorno" readonly></textarea>
+    </div>
+      
+    <div class="mathformulas" id="mathformulas">
       <h1>
           Math Formulas
       </h1>
   </div>
-  <div class="thirdsemester">
+  <div class="thirdsemester" id="thirdsemester">
       <h2>
           3° Semester
       </h2>
   </div>
-  <div class="firstpartial">
+  <div class="firstpartial" id="firstpartial">
     <h3>1st Partial</h3>
   </div>
-  <div class="formulas">
+  <div class="formulas" id="formulas">
       <div class="coordinateplane">
           <h3 class="CoordinatePlane">Coordinate Plane</h3>
           <div>
@@ -75,5 +83,4 @@
         
         </div>
       </div>
-  </div>
   </body>

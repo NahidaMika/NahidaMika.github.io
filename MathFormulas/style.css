@@ -51,6 +51,11 @@ body {
     border-color: black ;
     resize: none;
 }
+.successorno {
+    background-color: transparent;
+    border-color: transparent;
+    resize: none;
+}
 #calculate {
     border-color:white;
 }
