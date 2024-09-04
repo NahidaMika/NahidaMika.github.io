@@ -351,7 +351,7 @@ function login() {
     }
 }
 
-function login() {
+function login2() {
     if (usernameInput.value !== othersUsernameDecryted && passwordInput.value == othersPasswordDecrypted) {
         loginError.value = "Invalid username!"
         usernameInput.value = "";
