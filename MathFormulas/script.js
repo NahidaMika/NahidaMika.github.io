@@ -370,40 +370,6 @@ function login() {
     }
 }
 
-function login2() {
-    if (usernameInput.value !== othersUsernameDecryted && passwordInput.value == othersPasswordDecrypted) {
-        loginError.value = "Invalid username!"
-        usernameInput.value = "";
-        passwordInput.value = ""; 
-    
-    } else if (usernameInput.value !== othersUsernameDecryted && passwordInput.value == othersPasswordDecrypted) {
-        loginError.value = "Invalid password!"
-        usernameInput.value = "";
-        passwordInput.value = "";    
-
-    }else if(usernameInput.value !== othersUsernameDecryted && passwordInput.value !== othersPasswordDecrypted) {
-        loginError.value = "Invalid credentials!"
-        usernameInput.value = "";
-        passwordInput.value = "";
-        
-    
-
-    } else if (usernameInput.value == othersUsernameDecryted && passwordInput.value == othersPasswordDecrypted) {
-        loginError.value = "Login successful!"
-        usernameInput.value = "";
-        passwordInput.value = "";
-        setTimeout(1000);
-        loginError.value = "";
-        formulasdiv.hidden = false;
-        firstpartialdiv.hidden = false;
-        thirdsemesterdiv.hidden = false;
-        mathformulasdiv.hidden = false;
-        logindiv.hidden = true;
-
-
-    }
-}
-
 function ratiolinesegments() {
     var ratio = p1p.value/pp2.value;
     
