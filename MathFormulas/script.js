@@ -336,12 +336,6 @@ function calculateAreaFormula() {
 //var passwordDecrypted = window.atob(passwordEncrypted);
 //var usernameDecrypted = window.atob(usernameEncrypted);
 
-//var othersUsernameEncrypted = "b3RoZXJz"
-//var othersUsernameDecryted = window.atob(othersUsernameEncrypted);
-
-//var othersPasswordEncrypted = "YWRtaW4="
-//var othersPasswordDecrypted = window.atob(othersPasswordEncrypted);
-
 function login() {
     if (usernameInput.value !== usernameDecrypted && passwordInput.value == passwordDecrypted) {
         loginError.value = "Invalid username!"
