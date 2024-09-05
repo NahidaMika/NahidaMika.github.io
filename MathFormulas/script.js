@@ -65,7 +65,7 @@ pp2.value = "";
 resultdecimals.value = "";
 resultfraction.value = "";
 
-var passwordEncrypted = "bmFoaWRhQWRtaW4="
+//var passwordEncrypted = "bmFoaWRhQWRtaW4="
 function calculateDistanceFormula() {
 
     if (X1.value <= 0) {
@@ -297,7 +297,7 @@ function calculateDistanceFormula() {
     }
 }
 
-var usernameEncrypted = "bmFoaWRh";
+//var usernameEncrypted = "bmFoaWRh";
 
 function calculateAreaFormula() {
     if (X4Area.value.length > 0 && Y4Area.value.length > 0) {
@@ -317,14 +317,14 @@ function calculateAreaFormula() {
     }
 }
 
-var passwordDecrypted = window.atob(passwordEncrypted);
-var usernameDecrypted = window.atob(usernameEncrypted);
+//var passwordDecrypted = window.atob(passwordEncrypted);
+//var usernameDecrypted = window.atob(usernameEncrypted);
 
-var othersUsernameEncrypted = "b3RoZXJz"
-var othersUsernameDecryted = window.atob(othersUsernameEncrypted);
+//var othersUsernameEncrypted = "b3RoZXJz"
+//var othersUsernameDecryted = window.atob(othersUsernameEncrypted);
 
-var othersPasswordEncrypted = "YWRtaW4="
-var othersPasswordDecrypted = window.atob(othersPasswordEncrypted);
+//var othersPasswordEncrypted = "YWRtaW4="
+//var othersPasswordDecrypted = window.atob(othersPasswordEncrypted);
 
 function login() {
     if (usernameInput.value !== usernameDecrypted && passwordInput.value == passwordDecrypted) {
