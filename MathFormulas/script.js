@@ -25,11 +25,16 @@ var usernameInput = document.getElementById("username");
 var passwordInput = document.getElementById("password");
 var loginError = document.getElementById("successorno");
 var loginButton = document.getElementById("loginButton");
+//thrird calculator elements
+var p1p = document.getElementById("p1p");
+var pp2 = document.getElementById("pp2");
+var resultdecimals = document.getElementById("resultlinesegment");
+var resultfraction = document.getElementById("resultlinesegment2");
 
-formulasdiv.hidden = true;
-firstpartialdiv.hidden = true;
-thirdsemesterdiv.hidden = true;
-mathformulasdiv.hidden = true;
+//formulasdiv.hidden = true;
+//firstpartialdiv.hidden = true;
+//thirdsemesterdiv.hidden = true;
+//mathformulasdiv.hidden = true;
 
 
 //clear when loaded 
@@ -51,10 +56,14 @@ Y4Area.value ="";
 
 ResultArea.value = "";
 
-loginError.value ="";
-usernameInput.value ="";
-passwordInput.value ="";
+//loginError.value ="";
+//usernameInput.value ="";
+//passwordInput.value ="";
 
+p1p.value = "";
+pp2.value = "";
+resultdecimals.value = "";
+resultfraction.value = "";
 
 var passwordEncrypted = "bmFoaWRhQWRtaW4="
 function calculateDistanceFormula() {
@@ -385,4 +394,10 @@ function login2() {
     }
 }
 
+function ratiolinesegments() {
+    var ratio = p1p.value/pp2.value
+    
+    resultdecimals.value = ratio
+    resultfraction.value = p1p.value + "/" + pp2.value  
+}
 

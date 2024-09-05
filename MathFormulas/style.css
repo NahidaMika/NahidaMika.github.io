@@ -86,3 +86,33 @@ body {
 .perimeterandareaCalculator2 {
     margin-top: 1%;
 }
+.blue {
+    color: blue;
+}
+.ratiolinesegment {
+    margin-top: 2%;
+    font-size: 125%;
+}
+.ratiolinesegmentformula {
+    margin-left: 10%;
+    margin-top: 2%;
+}
+.spaced1 {
+    margin-left: -11%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+.spaced2 {
+    margin-left: -11%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+#formula {
+    font-size: 125%;
+}
+.linesegmentresult {
+    margin-top: .5%;
+}
+.linesegmentbutton {
+    margin-top: .75%;
+}
