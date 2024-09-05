@@ -93,12 +93,35 @@
             <input type="text" id="p1p" placeholder="Enter the P₁P value">   <input type="text" id="pp2" placeholder="Enter the PP₂ value">
             <div class="linesegmentbutton">
               <button id="calculateratiolinesegment" onclick="ratiolinesegments()">Calculate</button>
-
             </div>
             <div class="linesegmentresult">
             <textarea name="" cols="30" rows="1" id="resultlinesegment2" placeholder="Result in fraction" readonly class="result"></textarea>
             <textarea name="" cols="30" rows="1" id="resultlinesegment" placeholder="Result in decimals" readonly class="result"></textarea>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ratiocoordinate">
+        <h4>Ratio of a Line Segment</h4>
+        <p>To find the coordinates of the ratio.</p>
+        <div class="ratiocoordinateformula">
+          <p class="blue" id="formula">x= x₁ + rx₂/1+r</p> <p class="blue" id="formula">y= y₁ + ry₂/1+r</p>
+          <div class="ratiocoordinatecalc">
+            <div class="ratiocoordcaclinputs">
+              <input type="text" id="x1ratiocoord" placeholder="Enter x₁"><input type="text" id="y1ratiocoord" placeholder="Enter y₁">
+              <div class="ratiocoordscalcinput2">
+              <input type="text" id="x2ratiocoord" placeholder="Enter x₂"><input type="text" id="y2ratiocoord" placeholder="Enter y₂">
+              </div>
+            </div>
+            <div class="ratiocoordscalcratios">
+              <p>Ratio: </p><input type="text" id="rcoord" placeholder="Enter the first value"><input type="text" id="rcoord2" placeholder="Enter the second value">
+              <div class="ratiocoordcalculatebutton">
+                <button id="ratiocoordinatebutton" onclick="ratioCoordinates()">Calculate</button>
+                <textarea name="" cols="30" rows="1" id="resultratiocoordinates" placeholder="Result: " readonly class="result"></textarea>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>

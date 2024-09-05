@@ -30,6 +30,14 @@ var p1p = document.getElementById("p1p");
 var pp2 = document.getElementById("pp2");
 var resultdecimals = document.getElementById("resultlinesegment");
 var resultfraction = document.getElementById("resultlinesegment2");
+//Fourth calc elements
+var Ratiox1 = document.getElementById("x1ratiocoord");
+var Ratioy1 = document.getElementById("y1ratiocoord");
+var Ratiox2 = document.getElementById("x2ratiocoord");
+var Ratioy2 = document.getElementById("y2ratiocoord");
+var ratio1 = document.getElementById("rcoord");
+var ratio2 = document.getElementById("rcoord2");
+var ratioCoordinatesResult = document.getElementById("resultratiocoordinates");
 
 //formulasdiv.hidden = true;
 //firstpartialdiv.hidden = true;
@@ -64,6 +72,14 @@ p1p.value = "";
 pp2.value = "";
 resultdecimals.value = "";
 resultfraction.value = "";
+
+Ratiox1.value = "";
+Ratioy1.value = "";
+Ratiox2.value = "";
+Ratioy2.value = "";
+ratio1.value = "";
+ratio2.value = "";
+ratioCoordinatesResult.value = "";
 
 //var passwordEncrypted = "bmFoaWRhQWRtaW4="
 function calculateDistanceFormula() {
@@ -395,9 +411,29 @@ function login2() {
 }
 
 function ratiolinesegments() {
-    var ratio = p1p.value/pp2.value
+    var ratio = p1p.value/pp2.value;
     
-    resultdecimals.value = ratio
-    resultfraction.value = p1p.value + "/" + pp2.value  
+    resultdecimals.value = ratio;
+    resultfraction.value = p1p.value + "/" + pp2.value ; 
+    
+}
+
+function ratioCoordinates() {
+    var r = ratio1.value/ratio2.value;
+
+    var step1ratioXcoordinates = r*Ratiox2.value;
+    var step2ratioXcoordinates = Ratiox1.value + step1ratioXcoordinates;
+    var step3ratioXcoordinates = 1+r;
+    var step4ratioXcoordinates = step2ratioXcoordinates / step3ratioXcoordinates;
+    var ratioXcoordinate = step4ratioXcoordinates;
+
+    var step1ratioYcoordinates = r*Ratioy2.value;
+    var step2ratioYcoordinates = Ratioy1.value + step1ratioYcoordinates;
+    var step3ratioYcoordinates = 1+r;
+    var step4ratioYcoordinates = step2ratioYcoordinates / step3ratioYcoordinates;
+    var ratioYcoordinate = step4ratioYcoordinates;
+
+    ratioCoordinatesResult.value = "P("+ratioXcoordinate+", " +ratioYcoordinate+")";
+
 }
 
