@@ -123,7 +123,6 @@ body {
 .ratiocoordinateformula {
     margin-left: 10%;
     margin-top: 2%;
-    margin-bottom: 2%;
 }
 .ratiocoordscalcratios {
     margin-top: .5%;
@@ -136,4 +135,21 @@ body {
 }
 .ratiocoordinatecalc {
     margin-top: 2%;
+}
+.midpointlinesegment {
+    margin-top: 2%;
+    font-size: 125%;
+}
+.midpointlinesegmentformula {
+    margin-left: 10%;
+    margin-top: 2%;
+}
+.midpointlinesegmentcalculator {
+    margin-top: 2%;
+}
+.midpointlinesegmentcalcinputs {
+    margin-top: .5%;
+}
+.midpointlinesegmentcalcbuttonandresult {
+    margin-top: .5%;
 }

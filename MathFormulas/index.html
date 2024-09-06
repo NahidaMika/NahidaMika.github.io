@@ -109,19 +109,47 @@
           <p class="blue" id="formula">x= x₁ + rx₂/1+r</p> <p class="blue" id="formula">y= y₁ + ry₂/1+r</p>
           <div class="ratiocoordinatecalc">
             <div class="ratiocoordcaclinputs">
-              <input type="text" id="x1ratiocoord" placeholder="Enter x₁"><input type="text" id="y1ratiocoord" placeholder="Enter y₁">
+              <input type="text" id="x1ratiocoord" placeholder="Enter x₁">
+              
+              <input type="text" id="y1ratiocoord" placeholder="Enter y₁">
               <div class="ratiocoordscalcinput2">
-              <input type="text" id="x2ratiocoord" placeholder="Enter x₂"><input type="text" id="y2ratiocoord" placeholder="Enter y₂">
+              <input type="text" id="x2ratiocoord" placeholder="Enter x₂">
+              
+              <input type="text" id="y2ratiocoord" placeholder="Enter y₂">
               </div>
             </div>
             <div class="ratiocoordscalcratios">
-              <p>Ratio: </p><input type="text" id="rcoord" placeholder="Enter the first value"><input type="text" id="rcoord2" placeholder="Enter the second value">
+              <p>Ratio: </p><input type="text" id="rcoord" placeholder="Enter the first value">
+              
+              <input type="text" id="rcoord2" placeholder="Enter the second value">
               <div class="ratiocoordcalculatebutton">
                 <button id="ratiocoordinatebutton" onclick="ratioCoordinates()">Calculate</button>
                 <textarea name="" cols="30" rows="1" id="resultratiocoordinates" placeholder="Result: " readonly class="result"></textarea>
               </div>
             </div>
             
+          </div>
+        </div>
+      </div>
+      <div class="midpointlinesegment">
+        <h4>Midpoint of a Line Segment (To be fixed)</h4>
+        <p>The midpoint of a line segment is the one that is the same distance from either endpoint and divides the segment by a ratio of 1. The coordinate of the midpoint of a line segment is equal to half the sum of the coordinates of its extreme points, by means of the formulas.</p>
+        <div class="midpointlinesegmentformula">
+          <p class="blue" id="formula">Xm= x₁+x₂/2</p><p class="blue" id="formula">Ym= y₁+y₂/2</p> 
+          <div class="midpointlinesegmentcalculator">
+            <input type="text" id="midpointx1" placeholder="Enter x₁">
+            
+            <input type="text" id="midpointy1" placeholder="Enter y₁">
+            <div class="midpointlinesegmentcalcinputs">
+              <input type="text" id="midpointx2" placeholder="Enter x₂">
+            
+            <input type="text" id="midpointy2" placeholder="Enter y₂">
+            <div class="midpointlinesegmentcalcbuttonandresult">
+              <button id="midpointlinesegmentbutton" onclick="midpointCalculate()">Calculate</button>
+                <textarea name="" cols="30" rows="1" id="resultmidpointlinesegment" placeholder="Result: " readonly class="result"></textarea>
+            </div>
+
+            </div>
           </div>
         </div>
       </div>

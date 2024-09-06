@@ -38,6 +38,12 @@ var Ratioy2 = document.getElementById("y2ratiocoord");
 var ratio1 = document.getElementById("rcoord");
 var ratio2 = document.getElementById("rcoord2");
 var ratioCoordinatesResult = document.getElementById("resultratiocoordinates");
+//FIfth calc elemetn
+var x1midpoint = document.getElementById("midpointx1");
+var y1midpoint = document.getElementById("midpointy1");
+var x2midpoint = document.getElementById("midpointx2");
+var y2midpoint = document.getElementById("midpointy2");
+var midpointResult = document.getElementById("resultmidpointlinesegment");
 
 //formulasdiv.hidden = true;
 //firstpartialdiv.hidden = true;
@@ -380,20 +386,74 @@ function ratiolinesegments() {
 
 function ratioCoordinates() {
     var r = ratio1.value/ratio2.value;
+    //console.log(r);
 
-    var step1ratioXcoordinates = r*Ratiox2.value;
-    var step2ratioXcoordinates = Ratiox1.value + step1ratioXcoordinates;
-    var step3ratioXcoordinates = 1+r;
-    var step4ratioXcoordinates = step2ratioXcoordinates / step3ratioXcoordinates;
-    var ratioXcoordinate = step4ratioXcoordinates;
+    //X value
+    var step1X = r*Ratiox2.value;
+    //console.log(step1X);
+    if (step1X < 0) {
+        var step2X = Ratiox1.value-(-1*step1X);
+        //console.log(step2X);
+    } else if (step1X > 0) {
+        var step2X = Ratiox1.value+step1X;
+        //console.log(step2X);
+    }
+    var step3X = 1+r;
+    //console.log(step3X);
+    var ratioXcoordinate = step2X/step3X;
+    //console.log(ratioXcoordinate);
 
-    var step1ratioYcoordinates = r*Ratioy2.value;
-    var step2ratioYcoordinates = Ratioy1.value + step1ratioYcoordinates;
-    var step3ratioYcoordinates = 1+r;
-    var step4ratioYcoordinates = step2ratioYcoordinates / step3ratioYcoordinates;
-    var ratioYcoordinate = step4ratioYcoordinates;
+    //Y value
+    var step1Y = r*Ratioy2.value;
+    //console.log(step1Y);
+    if (step1Y < 0) {
+        var step2Y = Ratioy1.value-(-1*step1X);
+        //console.log(step2Y);
+    } else if (step1Y > 0) {
+        var step2Y = Ratioy1.value+step1X;
+        //console.log(step2Y);
+    }
+    var step3Y = 1+r;
+    //console.log(step3Y);
+    var ratioYcoordinate = step2Y/step3Y;
+    //console.log(ratioYcoordinate);
 
     ratioCoordinatesResult.value = "P("+ratioXcoordinate+", " +ratioYcoordinate+")";
+}
+
+function midpointCalculate() {  
+
+
+    //if (x2midpoint.value < 0) {
+
+        //var midpointXstep1 = x1midpoint.value - (-1*x2midpoint.value);
+        //var midpointXstep2 = midpointXstep1/2;
+        //var midpointx = midpointXstep2
+
+    //} else if (x2midpoint.value > 0) {
+
+        
+    //    var midpointXstep1 = x1midpoint.value + (2*x2midpoint.value);
+    //    var midpointXstep2 = midpointXstep1/2;
+     //   var midpointx = midpointXstep2
+
+    //} else if (x1midpoint.value < 0 &&)
+    
+    //if (y2midpoint.value < 0) {
+
+    //    var midpointYstep1 = y1midpoint.value - (-1*y2midpoint.value)
+    //    var midpointYstep2 = midpointYstep1/2;
+    //   var midpointy = midpointYstep2
+
+    //} else if (y2midpoint.value > 0) {
+        
+    //    var midpointYstep1 = y1midpoint.value + y2midpoint.value;
+    //    var midpointYstep2 = midpointYstep1/2;
+    //    var midpointy = midpointYstep2
+
+    //}
+
+    midpointResult.value = "Pm(" +midpointx+", " +midpointy+")";
 
 }
 
