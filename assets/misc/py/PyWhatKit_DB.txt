@@ -1,0 +1,183 @@
+Date: 16/6/2024
+Time: 15:5
+Group ID: test
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:8
+Group ID: test
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:9
+Group ID: test
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:10
+Group ID: test
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:13
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:14
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:14
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:15
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: hola
+--------------------
+Date: 16/6/2024
+Time: 15:33
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: ola
+--------------------
+Date: 16/6/2024
+Time: 15:34
+Phone Number: +5218441769289
+Message: Nose
+--------------------
+Date: 16/6/2024
+Time: 16:12
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Message: la escuela
+--------------------
+Date: 16/6/2024
+Time: 16:13
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Message: la escuela
+--------------------
+Date: 16/6/2024
+Time: 16:14
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Message: o los 2
+--------------------
+Date: 16/6/2024
+Time: 16:17
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Message: & C:/Users/tleyo/AppData/Local/Microsoft/WindowsApps/python3.12.exe c:/Users/tleyo/Desktop/whatsapp.py
+--------------------
+Date: 16/6/2024
+Time: 16:24
+Phone Number: +5218441769289
+Message: 2024-06-16 16:24:37 Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 16:25
+Phone Number: +5218441769289
+Message: 2024-06-16 16:25:01 Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 16:25
+Phone Number: +5218441769289
+Message: 2024-06-16 16:25:24 Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 16:35
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: 2024-06-16 , 16:35:47 , Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 16:37
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Message: 2024-06-16 , 16:37:35 , Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 21:32
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: 2024-06-16 , 21:32:11 , Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 21:54
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: 2024-06-16 , 21:54:20 , Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 22:1
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Message: 2024-06-16 , 22:01:18 , Central Standard Time (Mexico)
+--------------------
+Date: 16/6/2024
+Time: 22:3
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: msg_to_group()
+--------------------
+Date: 16/6/2024
+Time: 22:4
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: 
+--------------------
+Date: 16/6/2024
+Time: 22:10
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Message: & C:/Users/tleyo/AppData/Local/Microsoft/WindowsApps/python3.12.exe c:/Users/tleyo/Desktop/whatsapp.py
+--------------------
+Date: 16/6/2024
+Time: 22:22
+Phone Number: +5218441769289
+Image: codeBot.png
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:23
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Image: codeBot.png
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:23
+Group ID: ES9uIxmkbBLHTJKzFCXtgc
+Image: codeBot.png
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:52
+Phone Number: +528442445100
+Image: IMG_3660.jpg
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:53
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Image: codeBot.png
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:53
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Image: codeBot.png
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:54
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Image: IMG_3660.jpg
+Caption: 
+--------------------
+Date: 16/6/2024
+Time: 22:54
+Group ID: FP7gEH0Urvq5iKLfup1I47
+Image: IMG_3660.jpg
+Caption: 
+--------------------
+Date: 17/6/2024
+Time: 21:26
+Phone Number: +528442445100
+Message: file:///C:/Users/tleyo/Desktop/html/index.html
+--------------------
+Date: 17/6/2024
+Time: 21:38
+Phone Number: +528445318868
+Message: gey
+--------------------
