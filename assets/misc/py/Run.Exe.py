@@ -8,7 +8,7 @@ import sys
 import ctypes
 
 
-availableexe = "MelonDS.exe, Wuthering Waves.exe, Yuzu.exe, Ryujinx.exe, HYP.exe, Citra.exe, visualboyadvance.exe, steam.exe, epicgames.exe, osu!.exe"
+availableexe = "MelonDS.exe, Wuthering Waves.exe, Yuzu.exe, Ryujinx.exe, HYP.exe, Citra.exe, visualboyadvance.exe, steam.exe, epicgames.exe, osu!.exe, itch.exe"
 print("These are the .exe that are available to open:")
 print(availableexe)
 
@@ -31,6 +31,17 @@ while True:
 
         print("Return code:", MelonDS.returncode)
         print("Standard output:", MelonDS.stdout.decode())
+        print("Standard error:", MelonDS.stderr.decode())
+
+    elif WhichExe == "itch":
+        print("___________________________")
+        print("Now initializing Itchio")
+        print("___________________________")
+
+        Itch = subprocess.run(r"D:\Juegos\MelonDS\MelonDS.exe", shell=True, capture_output=True)
+
+        print("Return code:", Itch.returncode)
+        print("Standard output:", Itch.stdout.decode())
         print("Standard error:", MelonDS.stderr.decode())
 
     elif WhichExe == "WuWa" or WhichExe == "wuwa" or WhichExe == "WUWA":

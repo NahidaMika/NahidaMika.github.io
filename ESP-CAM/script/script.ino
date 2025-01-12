@@ -8,6 +8,7 @@
 
 #include "esp_camera.h"
 #include <WiFi.h>
+#include <WiFiMulti.h>
 #include "esp_timer.h"
 #include "img_converters.h"
 #include "Arduino.h"
@@ -16,9 +17,21 @@
 #include "soc/rtc_cntl_reg.h"    // disable brownout problems
 #include "esp_http_server.h"
 
+WiFiMulti wifiMulti;
+
+// WiFi connect timeout per AP. Increase when connecting takes longer.
+const uint32_t connectTimeoutMs = 10000;
+
+//Networks
+const char* ssid1 = "IZZI-4E8A";
+const char* password1 = "F8F5329B4E8A";
+
 // Replace with your network credentials
-const char* ssid = "IZZI-4E8A";
-const char* password = "F8F5329B4E8A";
+// const char* ssid = "IZZI-4E8A";
+// const char* password = "F8F5329B4E8A";
+
+// const char* ssid = "NahidaMika";
+// const char* password = "nahidaPi";
 
 #define PART_BOUNDARY "123456789000000000000987654321"
 
@@ -131,7 +144,8 @@ const char* password = "F8F5329B4E8A";
 #define MOTOR_1_PIN_2    15
 #define MOTOR_2_PIN_1    13
 #define MOTOR_2_PIN_2    12
-#define LED_PIN          4
+#define FLASHLIGHT       4
+#define BUILTIN_RED_LED  33
 
 static const char* _STREAM_CONTENT_TYPE = "multipart/x-mixed-replace;boundary=" PART_BOUNDARY;
 static const char* _STREAM_BOUNDARY = "\r\n--" PART_BOUNDARY "\r\n";
@@ -158,6 +172,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
         </table>
         <table>
             <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('flash_on');" ontouchstart="toggleCheckbox('flash_on');">Flash On</button><button class="button" onmousedown="toggleCheckbox('flash_off');" ontouchstart="toggleCheckbox('flash_off');">Flash Off</button></td></tr>
+            <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('a');" ontouchstart="toggleCheckbox('a');">A</button></td></tr>     
         </table>
         <script>
             function toggleCheckbox(x) {
@@ -170,6 +185,38 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
     </body>
 </html>
 )rawliteral";
+
+void led_indicator(uint8_t led_name, int delay_value){
+  if (led_name == BUILTIN_RED_LED) {
+    // increase the LED brightness
+    for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){   
+    // changing the LED brightness with PWM
+    analogWrite(led_name, dutyCycle);
+    delay(delay_value);
+    }
+
+    // decrease the LED brightness
+    for(int dutyCycle = 0; dutyCycle <= 255; dutyCycle++){
+    // changing the LED brightness with PWM
+    analogWrite(led_name, dutyCycle);
+    delay(delay_value);
+    }
+  } else {
+    // increase the LED brightness
+    for(int dutyCycle = 0; dutyCycle <= 255; dutyCycle++){   
+    // changing the LED brightness with PWM
+    analogWrite(led_name, dutyCycle);
+    delay(delay_value);
+    }
+
+    // decrease the LED brightness
+    for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){
+    // changing the LED brightness with PWM
+    analogWrite(led_name, dutyCycle);
+    delay(delay_value);
+    }
+  }
+}
 
 static esp_err_t index_handler(httpd_req_t *req){
   httpd_resp_set_type(req, "text/html");
@@ -230,7 +277,7 @@ static esp_err_t stream_handler(httpd_req_t *req){
     if(res != ESP_OK){
       break;
     }
-    Serial.printf("MJPG: %uB\n",(uint32_t)(_jpg_buf_len));
+    //Serial.printf("MJPG: %uB\n",(uint32_t)(_jpg_buf_len));
   }
   return res;
 }
@@ -270,46 +317,51 @@ static esp_err_t cmd_handler(httpd_req_t *req){
   
   if(!strcmp(variable, "forward")) {
     Serial.println("Forward");
-    digitalWrite(MOTOR_1_PIN_1, 1);
-    digitalWrite(MOTOR_1_PIN_2, 0);
-    digitalWrite(MOTOR_2_PIN_1, 1);
-    digitalWrite(MOTOR_2_PIN_2, 0);
+    analogWrite(MOTOR_1_PIN_1, 128);
+    analogWrite(MOTOR_1_PIN_2, 0);
+    analogWrite(MOTOR_2_PIN_1, 128);
+    analogWrite(MOTOR_2_PIN_2, 0);
   }
   else if(!strcmp(variable, "left")) {
     Serial.println("Left");
-    digitalWrite(MOTOR_1_PIN_1, 0);
-    digitalWrite(MOTOR_1_PIN_2, 1);
-    digitalWrite(MOTOR_2_PIN_1, 1);
-    digitalWrite(MOTOR_2_PIN_2, 0);
+    analogWrite(MOTOR_1_PIN_1, 0);
+    analogWrite(MOTOR_1_PIN_2, 128);
+    analogWrite(MOTOR_2_PIN_1, 128);
+    analogWrite(MOTOR_2_PIN_2, 0);
   }
   else if(!strcmp(variable, "right")) {
     Serial.println("Right");
-    digitalWrite(MOTOR_1_PIN_1, 1);
-    digitalWrite(MOTOR_1_PIN_2, 0);
-    digitalWrite(MOTOR_2_PIN_1, 0);
-    digitalWrite(MOTOR_2_PIN_2, 1);
+    analogWrite(MOTOR_1_PIN_1, 128);
+    analogWrite(MOTOR_1_PIN_2, 0);
+    analogWrite(MOTOR_2_PIN_1, 0);
+    analogWrite(MOTOR_2_PIN_2, 128);
   }
   else if(!strcmp(variable, "backward")) {
     Serial.println("Backward");
-    digitalWrite(MOTOR_1_PIN_1, 0);
-    digitalWrite(MOTOR_1_PIN_2, 1);
-    digitalWrite(MOTOR_2_PIN_1, 0);
-    digitalWrite(MOTOR_2_PIN_2, 1);
+    analogWrite(MOTOR_1_PIN_1, 0);
+    analogWrite(MOTOR_1_PIN_2, 128);
+    analogWrite(MOTOR_2_PIN_1, 0);
+    analogWrite(MOTOR_2_PIN_2, 128);
   }
   else if(!strcmp(variable, "stop")) {
     Serial.println("Stop");
-    digitalWrite(MOTOR_1_PIN_1, 0);
-    digitalWrite(MOTOR_1_PIN_2, 0);
-    digitalWrite(MOTOR_2_PIN_1, 0);
-    digitalWrite(MOTOR_2_PIN_2, 0);
+    analogWrite(MOTOR_1_PIN_1, 0);
+    analogWrite(MOTOR_1_PIN_2, 0);
+    analogWrite(MOTOR_2_PIN_1, 0);
+    analogWrite(MOTOR_2_PIN_2, 0);
+  
   }
   else if(!strcmp(variable, "flash_on")) {
     Serial.println("Flash On");
-    digitalWrite(FLASH_PIN, HIGH);
+    analogWrite(FLASHLIGHT, 100);
   }
   else if(!strcmp(variable, "flash_off")) {
     Serial.println("Flash Off");
-    digitalWrite(FLASH_PIN, LOW);
+    analogWrite(FLASHLIGHT, 0);
+  }
+  else if(!strcmp(variable, "a")) {
+    Serial.println("a");
+    led_indicator(FLASHLIGHT, 5);
   }
   else {
     res = -1;
@@ -363,10 +415,14 @@ void setup() {
   pinMode(MOTOR_1_PIN_2, OUTPUT);
   pinMode(MOTOR_2_PIN_1, OUTPUT);
   pinMode(MOTOR_2_PIN_2, OUTPUT);
+  pinMode(FLASHLIGHT, OUTPUT);
+  pinMode(BUILTIN_RED_LED, OUTPUT);
   
   Serial.begin(115200);
   Serial.setDebugOutput(false);
-  
+
+  led_indicator(BUILTIN_RED_LED, 5);
+
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -390,8 +446,9 @@ void setup() {
   config.pixel_format = PIXFORMAT_JPEG; 
   
   if(psramFound()){
+    //Camera
     config.frame_size = FRAMESIZE_VGA;
-    config.jpeg_quality = 10;
+    config.jpeg_quality = 30;
     config.fb_count = 2;
   } else {
     config.frame_size = FRAMESIZE_SVGA;
@@ -405,22 +462,81 @@ void setup() {
     Serial.printf("Camera init failed with error 0x%x", err);
     return;
   }
-  // Wi-Fi connection
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
+
+  //Multi WiFi connection
+  WiFi.mode(WIFI_STA);
   
-  Serial.print("Camera Stream Ready! Go to: http://");
-  Serial.println(WiFi.localIP());
+  // Add list of wifi networks
+  wifiMulti.addAP(ssid1, password1);
+  //wifiMulti.addAP("NahidaMika", "nahidaPi");
+  wifiMulti.addAP("Nahida", "nahidaPi");
+
+  // WiFi.scanNetworks will return the number of networks found
+  int n = WiFi.scanNetworks();
+  Serial.println("Scan Done");
+  Serial.println("");
+  if (n == 0) {
+      Serial.println("No Networks Found");
+  } 
+  else {
+    Serial.print(n);
+    Serial.println(" Networks found:");
+    Serial.println("");
+    for (int i = 0; i < n; ++i) {
+      // Print SSID and RSSI for each network found
+      Serial.print(i + 1);
+      Serial.print(": ");
+      Serial.print(WiFi.SSID(i));
+      Serial.print(" (");
+      Serial.print(WiFi.RSSI(i));
+      Serial.print(")");
+      Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?" ":"*");
+      delay(10);
+    }
+  }
+
+  // Connect to Wi-Fi using wifiMulti (connects to the SSID with strongest connection)
+  Serial.println("\n");
+  Serial.println("Connecting Wifi...");
+  if(wifiMulti.run() == WL_CONNECTED) {
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("");
+    Serial.print("Camera Stream Ready! Go to: http://");
+    Serial.println(WiFi.localIP());
+  }
+
+  // // Wi-Fi connection
+  // WiFi.begin(ssid, password);
+  // while (WiFi.status() != WL_CONNECTED) {
+  //   delay(500);
+  //   Serial.print(".");
+  // }
+  // Serial.println("");
+  // Serial.println("WiFi connected");
+  
+  // Serial.print("Camera Stream Ready! Go to: http://");
+  // Serial.println(WiFi.localIP());
   
   // Start streaming web server
   startCameraServer();
 }
 
 void loop() {
-  
+  //if the connection to the stongest hotstop is lost, it will connect to the next network on the list
+  if (wifiMulti.run(connectTimeoutMs) == WL_CONNECTED) {
+    Serial.print("WiFi connected: ");
+    Serial.print(WiFi.SSID());
+    Serial.print(" ");
+    Serial.println(WiFi.RSSI());
+    if (WiFi.SSID() == "Nahida") {
+      led_indicator(BUILTIN_RED_LED, 20);
+    }else if (WiFi.SSID() == "IZZI-4E8A") {
+      led_indicator(BUILTIN_RED_LED, 10);
+    }
+  }
+  else {
+    Serial.println("WiFi not connected!");
+  }
+  delay(1000);
 }
