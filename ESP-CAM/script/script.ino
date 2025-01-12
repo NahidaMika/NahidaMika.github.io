@@ -171,8 +171,9 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('backward');" ontouchstart="toggleCheckbox('backward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Backward</button></td></tr>                   
         </table>
         <table>
-            <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('flash_on');" ontouchstart="toggleCheckbox('flash_on');">Flash On</button><button class="button" onmousedown="toggleCheckbox('flash_off');" ontouchstart="toggleCheckbox('flash_off');">Flash Off</button></td></tr>
-            <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('a');" ontouchstart="toggleCheckbox('a');">A</button></td></tr>     
+          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('flash_on');" ontouchstart="toggleCheckbox('flash_on');">Flash On</button><button class="button" onmousedown="toggleCheckbox('flash_off');" ontouchstart="toggleCheckbox('flash_off');">Flash Off</button></td></tr>
+          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('a');" ontouchstart="toggleCheckbox('a');">A</button></td></tr>   
+          <tr><td colspan="3" align="center"><textarea  class="textarea" placeholder="Speed" maxlength="3" cols="6" rows="1"></textarea><textarea rows="1" cols="9" maxlength="3" class="textarea" placeholder="Brightness"></textarea></tr>
         </table>
         <script>
             function toggleCheckbox(x) {
