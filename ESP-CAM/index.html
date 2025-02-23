@@ -63,15 +63,46 @@
     <table>
       <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('flash_on');" ontouchstart="toggleCheckbox('flash_on');">Flash On</button><button class="button" onmousedown="toggleCheckbox('flash_off');" ontouchstart="toggleCheckbox('flash_off');">Flash Off</button></td></tr>
       <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('a');" ontouchstart="toggleCheckbox('a');">A</button></td></tr>   
-      <tr><td colspan="3" align="center"><textarea  class="textarea" placeholder="Speed" maxlength="3" cols="6" rows="1"></textarea><textarea rows="1" cols="9" maxlength="3" class="textarea" placeholder="Brightness"></textarea></tr>
-    </table>
+      <tr><td colspan="3" align="center"><textarea id="speed" class="textarea" placeholder="Speed" maxlength="3" cols="6" rows="1"></textarea><textarea id="brightness" rows="1" cols="9" maxlength="3" class="textarea" placeholder="Brightness"></textarea></tr>
+      <tr><td colspan="3" align="center"><button class="button" onmousedown="speed();" ontouchstart="speed();">Set Speed</button><button class="button" onmousedown="brightness();" ontouchstart="brightness();">Set Brightness</button></td></tr>
+      </table>
     <script>
-        function toggleCheckbox(x) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/action?go=" + x, true);
-        xhr.send();
+      function set_none(value, id){
+        var textarea = document.getElementById(id);
+        textarea.value = value;
+      }
+      function toggleCheckbox(x) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/action?go=" + x, true);
+      xhr.send();
+      }
+
+      function speed() {
+        var speed = new XMLHttpRequest();
+        var speedTextArea = document.getElementById("speed");
+        var speedInt = parseInt(speedTextArea.value);
+        if (speedInt >= 0 && speedInt <= 255) {
+            speed.open("GET", "/action?go=" + speedInt, true);
+            speed.send();
+          } else {
+            alert("The Value Must Be between 0 and 255");
+          }
         }
-        window.onload = document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
+
+      function brightness() {
+        var brightness = new XMLHttpRequest();
+        var brightnessTextArea = document.getElementById("brightness");
+        var brightnessInt = parseInt(brightnessTextArea.value);
+        if (brightnessInt >= 0 && brightnessInt <= 255) {
+          brightness.open("GET", "/action?go=" + brightnessInt, true);
+          brightness.send();
+          } else {
+            alert("The Value Must Be between 0 and 255");
+          }
+        }
+      window.onload = document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
+      window.onload = set_none("", "speed");
+      window.onload = set_none("", "brightness");
     </script>
 </body>
 </html>

@@ -143,7 +143,7 @@ function addTask(){
         listcontainer.appendChild(li);  
         let span = document.createElement("span")
         span.innerHTML = "×";
-        li.appendChild(span);
+        li.appendChild(span);   
     }
     inputbox.value = "";
     saveData();

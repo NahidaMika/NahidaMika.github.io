@@ -163,27 +163,58 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
         <link rel="stylesheet" type="text/css" href="https://nahidamika.github.io/ESP-CAM/style.css"> 
     </head>
     <body>
-        <h1>ESP32-CAM Robot</h1>
-        <img src="" id="photo" alt="The Camera isn't working">
-        <table>
-            <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('forward');" ontouchstart="toggleCheckbox('forward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Forward</button></td></tr>
-            <tr><td align="center"><button class="button" onmousedown="toggleCheckbox('left');" ontouchstart="toggleCheckbox('left');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Left</button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('stop');" ontouchstart="toggleCheckbox('stop');">Stop</button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('right');" ontouchstart="toggleCheckbox('right');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Right</button></td></tr>
-            <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('backward');" ontouchstart="toggleCheckbox('backward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Backward</button></td></tr>                   
-        </table>
-        <table>
-          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('flash_on');" ontouchstart="toggleCheckbox('flash_on');">Flash On</button><button class="button" onmousedown="toggleCheckbox('flash_off');" ontouchstart="toggleCheckbox('flash_off');">Flash Off</button></td></tr>
-          <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('a');" ontouchstart="toggleCheckbox('a');">A</button></td></tr>   
-          <tr><td colspan="3" align="center"><textarea  class="textarea" placeholder="Speed" maxlength="3" cols="6" rows="1"></textarea><textarea rows="1" cols="9" maxlength="3" class="textarea" placeholder="Brightness"></textarea></tr>
-        </table>
-        <script>
-            function toggleCheckbox(x) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/action?go=" + x, true);
-            xhr.send();
-            }
-            window.onload = document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
-        </script>
-    </body>
+    <h1>ESP32-CAM Robot</h1>
+    <img src="" id="photo" alt="The Camera isn't working">
+    <table>
+        <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('forward');" ontouchstart="toggleCheckbox('forward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Forward</button></td></tr>
+        <tr><td align="center"><button class="button" onmousedown="toggleCheckbox('left');" ontouchstart="toggleCheckbox('left');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Left</button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('stop');" ontouchstart="toggleCheckbox('stop');">Stop</button></td><td align="center"><button class="button" onmousedown="toggleCheckbox('right');" ontouchstart="toggleCheckbox('right');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Right</button></td></tr>
+        <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('backward');" ontouchstart="toggleCheckbox('backward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Backward</button></td></tr>                   
+    </table>
+    <table>
+      <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('flash_on');" ontouchstart="toggleCheckbox('flash_on');">Flash On</button><button class="button" onmousedown="toggleCheckbox('flash_off');" ontouchstart="toggleCheckbox('flash_off');">Flash Off</button></td></tr>
+      <tr><td colspan="3" align="center"><button class="button" onmousedown="toggleCheckbox('a');" ontouchstart="toggleCheckbox('a');">A</button></td></tr>   
+      <tr><td colspan="3" align="center"><textarea id="speed" class="textarea" placeholder="Speed" maxlength="3" cols="6" rows="1"></textarea><textarea id="brightness" rows="1" cols="9" maxlength="3" class="textarea" placeholder="Brightness"></textarea></tr>
+      <tr><td colspan="3" align="center"><button class="button" onmousedown="speed();" ontouchstart="speed();">Set Speed</button><button class="button" onmousedown="brightness();" ontouchstart="brightness();">Set Brightness</button></td></tr>
+    </table>
+    <script>
+      function set_none(value, id){
+        var textarea = document.getElementById(id);
+        textarea.value = value;
+      }
+      function toggleCheckbox(x) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/action?go=" + x, true);
+      xhr.send();
+      }
+
+      function speed() {
+        var speed = new XMLHttpRequest();
+        var speedTextArea = document.getElementById("speed");
+        var speedInt = parseInt(speedTextArea.value);
+        if (speedInt >= 0 && speedInt <= 255) {
+            speed.open("GET", "/action?speed=" + speedTextArea.value, true);
+            speed.send();
+          } else {
+            alert("The Value Must Be between 0 and 255");
+          }
+        }
+
+      function brightness() {
+        var brightness = new XMLHttpRequest();
+        var brightnessTextArea = document.getElementById("brightness");
+        var brightnessInt = parseInt(brightnessTextArea.value);
+        if (brightnessInt >= 0 && brightnessInt <= 255) {
+          brightness.open("GET", "/action?brightness=" + brightnessTextArea.value, true);
+          brightness.send();
+          } else {
+            alert("The Value Must Be between 0 and 255");
+          }
+        }
+      window.onload = document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
+      window.onload = set_none("", "speed");
+      window.onload = set_none("", "brightness");
+    </script>
+</body>
 </html>
 )rawliteral";
 
@@ -235,7 +266,7 @@ static esp_err_t stream_handler(httpd_req_t *req){
   if(res != ESP_OK){
     return res;
   }
-
+  
   while(true){
     fb = esp_camera_fb_get();
     if (!fb) {
@@ -287,6 +318,8 @@ static esp_err_t cmd_handler(httpd_req_t *req){
   char*  buf;
   size_t buf_len;
   char variable[32] = {0,};
+  char speedVar[32] = {0,};
+  char brightnessVar[32] = {0,};
   
   buf_len = httpd_req_get_url_query_len(req) + 1;
   if (buf_len > 1) {
@@ -297,6 +330,10 @@ static esp_err_t cmd_handler(httpd_req_t *req){
     }
     if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
       if (httpd_query_key_value(buf, "go", variable, sizeof(variable)) == ESP_OK) {
+      } 
+      else if (httpd_query_key_value(buf, "speed", speedVar, sizeof(speedVar)) == ESP_OK) {
+      } 
+      else if (httpd_query_key_value(buf, "brightness", brightnessVar, sizeof(brightnessVar)) == ESP_OK) {
       } else {
         free(buf);
         httpd_resp_send_404(req);
@@ -315,7 +352,10 @@ static esp_err_t cmd_handler(httpd_req_t *req){
 
   sensor_t * s = esp_camera_sensor_get();
   int res = 0;
-  
+
+  int speed = 0;
+  int brightness = 0;
+  0
   if(!strcmp(variable, "forward")) {
     Serial.println("Forward");
     analogWrite(MOTOR_1_PIN_1, 128);
@@ -350,11 +390,10 @@ static esp_err_t cmd_handler(httpd_req_t *req){
     analogWrite(MOTOR_1_PIN_2, 0);
     analogWrite(MOTOR_2_PIN_1, 0);
     analogWrite(MOTOR_2_PIN_2, 0);
-  
   }
   else if(!strcmp(variable, "flash_on")) {
     Serial.println("Flash On");
-    analogWrite(FLASHLIGHT, 100);
+    analogWrite(FLASHLIGHT, 128);
   }
   else if(!strcmp(variable, "flash_off")) {
     Serial.println("Flash Off");
