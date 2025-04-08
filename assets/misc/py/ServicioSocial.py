@@ -15,16 +15,16 @@ def total_hours(hours):
     return hours
 
 # Define two datetime objects
-start_time = datetime(2025,3,11,hour=13, second=0, minute=0)  # January 1, 2022 12:00:00
-end_time = datetime(2025,3,11,hour=18, second=0, minute=0)  # January 1, 2022 13:30:00
+# start_time = datetime(2025,3,11,hour=13, second=0, minute=0)  # January 1, 2022 12:00:00
+# end_time = datetime(2025,3,11,hour=18, second=0, minute=0)  # January 1, 2022 13:30:00
 
 # Calculate the time difference
-time_diff = end_time - start_time
+# time_diff = end_time - start_time
 
 # Convert the time difference to an integer (in seconds)
-time_diff_int = time_diff.total_seconds()
+# time_diff_int = time_diff.total_seconds()
 
-print(total_hours(time_diff))  # Output: 5400 (1 hour 30 minutes in seconds)
+# print(total_hours(time_diff))  # Output: 5400 (1 hour 30 minutes in seconds)
 
 dia_1_1 = datetime(2025,2,26,13, 0, 0)  
 dia_1_2 = datetime(2025,2,26,18, 0, 0)
@@ -74,6 +74,47 @@ dia_12_1 = datetime(2025,3,14, 10, 21, 0)
 dia_12_2 = datetime(2025,3,14, 18, 0, 0)
 dia_12 = dia_12_2 - dia_12_1
 
-total = dia_1 + dia_2 + dia_3 + dia_4 + dia_5 + dia_6 + dia_7 + dia_8 + (dia_9*2) + (dia_10*2) + (dia_11*2) + (dia_12 *2 )
+dia_13_1 = datetime(2025,3,15, 9, 20, 0)
+dia_13_2 = datetime(2025,3,15, 14, 1, 0)
+dia_13 = dia_13_2 - dia_13_1
+
+dia_14_1 = datetime(2025,3,19, 13, 1, 0)
+dia_14_2 = datetime(2025,3,19, 18, 3, 0)
+dia_14 = dia_14_2 - dia_14_1
+
+dia_15_1 = datetime(2025,3,20, 13, 0, 0)
+dia_15_2 = datetime(2025,3,20, 17, 37, 0)
+dia_15 = dia_15_2 - dia_15_1
+
+dia_16_1 = datetime(2025,3,22, 9, 51, 0)
+dia_16_2 = datetime(2025,3,22, 14, 7, 0)
+dia_16 = dia_16_2 - dia_16_1
+
+dia_17_1 = datetime(2025,3,26, 13, 9, 0)
+dia_17_2 = datetime(2025,3,26, 17, 38, 0)
+dia_17 = dia_17_2 - dia_17_1
+
+dia_18_1 = datetime(2025,3,31, 13, 28, 0)
+dia_18_2 = datetime(2025,3,31, 17, 38, 0)
+dia_18 = dia_18_2 - dia_18_1
+
+dia_19_1 = datetime(2025,4,2, 13, 10, 0)
+dia_19_2 = datetime(2025,4,2, 18, 3, 0)
+dia_19 = dia_19_2 - dia_19_1
+
+dia_20_1 = datetime(2025,4,4, 10, 9, 0)
+dia_20_2 = datetime(2025,4,4, 18, 3, 0)
+dia_20 = dia_20_2 - dia_20_1
+
+total = dia_1 + dia_2 + dia_3 + dia_4 + dia_5 + dia_6 + dia_7 + dia_8 + (dia_9*2) + (dia_10*2) + (dia_11*2) + (dia_12 *2 ) + dia_13 + dia_14 + dia_15 + dia_16 + dia_17 + dia_18 + dia_19 + dia_20
+
+H_180 = 10800
+quedante = H_180 - (total.total_seconds()/60)
+
+print(quedante)
+
+print(quedante/60)
+
+print(f"{total.total_seconds()/60} / {H_180}")
 
 print(total_hours(total))
