@@ -15,53 +15,53 @@ from io import BytesIO
 
 
 
-def getindividualdate():
-    completeDate = input("Enter the date in the format MM/DD/Hour In/Minute In/Hour Out/Minute Out/: ")
-    day, month, hour_in, minute_in, hour_out, minute_out = completeDate.split('/')
-    print(f"{month}/{day} {hour_in}:{minute_in}/{hour_out}:{minute_out}")
-    return month, day, hour_in, minute_in, hour_out, minute_out
+# def getindividualdate():
+#     completeDate = input("Enter the date in the format MM/DD/Hour In/Minute In/Hour Out/Minute Out/: ")
+#     day, month, hour_in, minute_in, hour_out, minute_out = completeDate.split('/')
+#     print(f"{month}/{day} {hour_in}:{minute_in}/{hour_out}:{minute_out}")
+#     return month, day, hour_in, minute_in, hour_out, minute_out
 
-class ServicioSocial:
-    def __init__(self, month, day, hour_in, minute_in, hour_out, minute_out):
-        self.year = 2025
-        self.month = month
-        self.day = day
-        self.hour_in = hour_in
-        self.minute_in = minute_in
-        self.second_in = 0
-        self.hour_out = hour_out
-        self.minute_out = minute_out
-        self.second_out = 0
+# class ServicioSocial:
+#     def __init__(self, month, day, hour_in, minute_in, hour_out, minute_out):
+#         self.year = 2025
+#         self.month = month
+#         self.day = day
+#         self.hour_in = hour_in
+#         self.minute_in = minute_in
+#         self.second_in = 0
+#         self.hour_out = hour_out
+#         self.minute_out = minute_out
+#         self.second_out = 0
 
-    def save(self, path):
-            # map_file_path = 'SSIdiomas\\Json\\'
-            save_map = open(path, 'xt')# map_file_path + 
-            json.dump({'year': self.year,'month': self.month, 'day': self.day, 'hour_in': self.hour_in, 'minute_in': self.minute_in, 'second_in': self.second_in, 'hour_out': self.hour_out, 'minute_out': self.minute_out, 'second_out': self.second_out}, save_map)
-            save_map.close()
+#     def save(self, path):
+#             # map_file_path = 'SSIdiomas\\Json\\'
+#             save_map = open(path, 'xt')# map_file_path + 
+#             json.dump({'year': self.year,'month': self.month, 'day': self.day, 'hour_in': self.hour_in, 'minute_in': self.minute_in, 'second_in': self.second_in, 'hour_out': self.hour_out, 'minute_out': self.minute_out, 'second_out': self.second_out}, save_map)
+#             save_map.close()
 
-    def load(self):
-        mapPath = filedialog.askopenfilename(initialdir="SSIdiomas\\Json",
-                                            title="Open file okay?",
-                                            filetypes= (("Map File","*.json"),
-                                            ("all files","*.*")))
-        map = open(mapPath,'r')
-        map_data = json.load(map)
-        map.close()
+#     def load(self):
+#         mapPath = filedialog.askopenfilename(initialdir="SSIdiomas\\Json",
+#                                             title="Open file okay?",
+#                                             filetypes= (("Map File","*.json"),
+#                                             ("all files","*.*")))
+#         map = open(mapPath,'r')
+#         map_data = json.load(map)
+#         map.close()
 
-        self.year = map_data['year']
-        self.month  = map_data['month']
-        self.day = map_data['day']
-        self.hour_in = map_data['hour_in']
-        self.minute_in = map_data['minute_in']
-        self.second_in = map_data['second_in']
-        self.hour_out = map_data['hour_out']
-        self.minute_out = map_data['minute_out']
-        self.second_out = map_data['second_out']
+#         self.year = map_data['year']
+#         self.month  = map_data['month']
+#         self.day = map_data['day']
+#         self.hour_in = map_data['hour_in']
+#         self.minute_in = map_data['minute_in']
+#         self.second_in = map_data['second_in']
+#         self.hour_out = map_data['hour_out']
+#         self.minute_out = map_data['minute_out']
+#         self.second_out = map_data['second_out']
 
-    def showHours(self):
-        pass
-month, day, hour_in, minute_in, hour_out, minute_out = getindividualdate()
-ServicioSocial(month, day, hour_in, minute_in, hour_out, minute_out).save('ServicioSocial.json')
+#     def showHours(self):
+#         pass
+# month, day, hour_in, minute_in, hour_out, minute_out = getindividualdate()
+# ServicioSocial(month, day, hour_in, minute_in, hour_out, minute_out).save('ServicioSocial.json')
 
 def total_hours(hours):
     hours.total_seconds()/ 3600
@@ -175,14 +175,35 @@ dia_24_1 = datetime(2025,4,12, 10, 4, 0)
 dia_24_2 = datetime(2025,4,12, 14, 30, 0)
 dia_24 = dia_24_2 - dia_24_1
 
-dia_25_1 = datetime(2025,4,9, 13, 0, 0)
-dia_25_2 = datetime(2025,4,9, 17, 30, 0)
+dia_25_1 = datetime(2025,4,26, 9, 21, 0)
+dia_25_2 = datetime(2025,4,26, 14, 7, 0)
 dia_25 = dia_25_2 - dia_25_1
 
+dia_26_1 = datetime(2025,4,28, 13, 17, 0)
+dia_26_2 = datetime(2025,4,28, 17, 55, 0)
+dia_26 = dia_26_2 - dia_26_1
+
+dia_27_1 = datetime(2025,4,30, 13, 20, 0)
+dia_27_2 = datetime(2025,4,30, 18, 4, 0)
+dia_27 = dia_27_2 - dia_27_1
+
+dia_28_1 = datetime(2025,5,3, 9, 25, 0)
+dia_28_2 = datetime(2025,5,3, 14, 30, 0)
+dia_28 = dia_28_2 - dia_28_1
+
+dia_29_1 = datetime(2025,5,5, 13, 19, 0)
+dia_29_2 = datetime(2025,5,5, 18, 0, 0)
+dia_29 = dia_29_2 - dia_29_1
+
+dia_30_1 = datetime(2025,5,7, 13, 0, 0)
+dia_30_2 = datetime(2025,5,7, 18, 6, 0)
+dia_30 = dia_30_2 - dia_30_1
 
 
 
-total = dia_1 + dia_2 + dia_3 + dia_4 + dia_5 + dia_6 + dia_7 + dia_8 + (dia_9*2) + (dia_10*2) + (dia_11*2) + (dia_12 *2 ) + dia_13 + dia_14 + dia_15 + dia_16 + dia_17 + dia_18 + dia_19 + dia_20 + dia_21 + dia_22 + (dia_23) + dia_24 
+
+
+total = dia_1 + dia_2 + dia_3 + dia_4 + dia_5 + dia_6 + dia_7 + dia_8 + (dia_9*2) + (dia_10*2) + (dia_11*2) + (dia_12 *2 ) + dia_13 + dia_14 + dia_15 + dia_16 + dia_17 + dia_18 + dia_19 + dia_20 + dia_21 + dia_22 + (dia_23) + dia_24 + dia_25 + dia_26 + dia_27 + dia_28 + (dia_29*2) + (dia_30*2)
 
 H_180 = 10800
 quedante = H_180 - (total.total_seconds()/60)
