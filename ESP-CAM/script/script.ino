@@ -155,6 +155,7 @@ httpd_handle_t camera_httpd = NULL;
 httpd_handle_t stream_httpd = NULL;
 
 static const char PROGMEM INDEX_HTML[] = R"rawliteral(
+<!DOCTYPE html>
 <html>
     <head>
         <title>ESP32-CAM Robot</title>
@@ -176,18 +177,20 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
       <tr><td colspan="3" align="center"><textarea id="speed" class="textarea" placeholder="Speed" maxlength="3" cols="6" rows="1"></textarea><textarea id="brightness" rows="1" cols="9" maxlength="3" class="textarea" placeholder="Brightness"></textarea></tr>
       <tr><td colspan="3" align="center"><button class="button" onmousedown="speed();" ontouchstart="speed();">Set Speed</button><button class="button" onmousedown="brightness();" ontouchstart="brightness();">Set Brightness</button></td></tr>
     </table>
-    <script>
-      function set_none(value, id){
+  </body>
+  <script>
+  function set_none(value, id){
         var textarea = document.getElementById(id);
         textarea.value = value;
       }
-      function toggleCheckbox(x) {
+
+  function toggleCheckbox(x) {
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "/action?go=" + x, true);
       xhr.send();
       }
 
-      function speed() {
+  function speed() {
         var speed = new XMLHttpRequest();
         var speedTextArea = document.getElementById("speed");
         var speedInt = parseInt(speedTextArea.value);
@@ -199,7 +202,7 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
           }
         }
 
-      function brightness() {
+  function brightness() {
         var brightness = new XMLHttpRequest();
         var brightnessTextArea = document.getElementById("brightness");
         var brightnessInt = parseInt(brightnessTextArea.value);
@@ -210,11 +213,17 @@ static const char PROGMEM INDEX_HTML[] = R"rawliteral(
             alert("The Value Must Be between 0 and 255");
           }
         }
-      window.onload = document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
-      window.onload = set_none("", "speed");
-      window.onload = set_none("", "brightness");
-    </script>
-</body>
+
+// window.onload = document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
+// window.onload = set_none("", "speed");
+// window.onload = set_none("", "brightness");
+
+    window.onload = function() {
+        document.getElementById("photo").src = window.location.href.slice(0, -1) + ":81/stream";
+        set_none("", "speed");
+        set_none("", "brightness");
+      };
+  </script>
 </html>
 )rawliteral";
 
@@ -355,7 +364,7 @@ static esp_err_t cmd_handler(httpd_req_t *req){
 
   int speed = 0;
   int brightness = 0;
-  0
+
   if(!strcmp(variable, "forward")) {
     Serial.println("Forward");
     analogWrite(MOTOR_1_PIN_1, 128);
