@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Pro - Secure Podium</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root { 
+            --primary: #3498db; --success: #2ecc71; --danger: #e74c3c; --gold: #f1c40f; --silver: #bdc3c7;
+            --bg: #1a202c; --card: #2d3748; --text: #f7fafc; --border: #4a5568;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); padding: 20px; color: var(--text); margin: 0; }
+        
+        #victory-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); z-index: 3000; flex-direction: column; 
+            justify-content: center; align-items: center; color: white; text-align: center;
+        }
+
+        #entry-modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; 
+        }
+        .modal-content { background: var(--card); padding: 30px; border-radius: 12px; width: 400px; text-align: center; border: 1px solid var(--border); }
+        
+        .top-nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto 20px auto; gap: 10px; }
+        #capture-area { padding: 40px; background: var(--bg); display: inline-block; min-width: 100%; }
+        .bracket-display { display: flex; gap: 60px; align-items: flex-start; }
+        
+        .round-col { display: flex; flex-direction: column; justify-content: space-around; min-width: 320px; gap: 30px; }
+        .match-card { background: var(--card); border-radius: 8px; border-left: 5px solid var(--primary); padding: 15px; border: 1px solid var(--border); }
+        
+        .player-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; margin: 4px 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 4px; }
+        .player-row.advanced { border-color: var(--success); background: rgba(46, 204, 113, 0.1); }
+        .player-row.first-place { border-color: var(--gold); background: rgba(241, 196, 15, 0.2); font-weight: bold; }
+        .player-row.second-place { border-color: var(--silver); background: rgba(189, 195, 199, 0.2); }
+        
+        button { cursor: pointer; border: none; border-radius: 4px; font-weight: 600; padding: 5px 10px; font-size: 0.8rem; }
+        .advance-btn { background: var(--success); color: white; }
+        .undo-btn { background: var(--danger); color: white; padding: 2px 6px; }
+        .util-btn { background: var(--primary); color: white; }
+        .jpg-btn { background: #e67e22; color: white; }
+        .rank-btn-1 { background: var(--gold); color: #000; margin-left: 5px; }
+        .rank-btn-2 { background: var(--silver); color: #000; margin-left: 5px; }
+
+        input { width: 100%; padding: 12px; background: #1a202c; color: white; border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; }
+        .crown-icon { font-size: 60px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div id="victory-overlay">
+    <div class="crown-icon">👑</div>
+    <h1 id="winner-text">CHAMPIONS!</h1>
+    <button class="util-btn" onclick="document.getElementById('victory-overlay').style.display='none'">View Results</button>
+</div>
+
+<div id="entry-modal">
+    <div class="modal-content">
+        <h3>Add Participant</h3>
+        <input type="text" id="manualName" placeholder="Enter name..." onkeydown="if(event.key==='Enter') addOnePlayer()">
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <button class="util-btn" style="flex:1" onclick="addOnePlayer()">Add</button>
+            <button class="undo-btn" style="flex:1" onclick="toggleModal(false)">Close</button>
+        </div>
+        <p style="font-size:0.8rem; color:#888;">Participants: <span id="playerCount">0</span></p>
+    </div>
+</div>
+
+<div class="top-nav">
+    <div style="display:flex; gap:10px; align-items:center;">
+        <h2 style="margin:0">🏆 4-Player Manager</h2>
+        <button class="util-btn" style="background:#9b59b6" onclick="toggleModal(true)">👤 Add Player</button>
+    </div>
+    <div style="display:flex; gap:10px;">
+        <button class="jpg-btn" onclick="exportJPG()">🖼️ Export JPG</button>
+        <button class="util-btn" onclick="startTournament()">🚀 Start</button>
+        <button class="undo-btn" onclick="location.reload()">🔄 Reset</button>
+    </div>
+</div>
+
+<div id="capture-area">
+    <div class="bracket-display" id="bracketContainer"></div>
+</div>
+
+<script>
+    let players = [];
+    let rounds = []; 
+
+    function toggleModal(show) {
+        document.getElementById('entry-modal').style.display = show ? 'flex' : 'none';
+        if(show) document.getElementById('manualName').focus();
+    }
+
+    function addOnePlayer() {
+        const input = document.getElementById('manualName');
+        if (input.value.trim()) {
+            players.push(input.value.trim());
+            input.value = '';
+            document.getElementById('playerCount').innerText = players.length;
+            updateInitialView();
+        }
+    }
+
+    function updateInitialView() {
+        if (rounds.length === 0) {
+            document.getElementById('bracketContainer').innerHTML = 
+                `<div class="round-col"><h3>Roster (${players.length})</h3>` + 
+                players.map(p => `<div class="player-row">${p}</div>`).join('') + `</div>`;
+        }
+    }
+
+    function startTournament() {
+        if (players.length < 2) return alert("Add more players!");
+        let bracketPlayers = [...players].sort(() => Math.random() - 0.5);
+        rounds = [bracketPlayers];
+        renderAllRounds();
+    }
+
+    function renderAllRounds() {
+        const container = document.getElementById('bracketContainer');
+        container.innerHTML = "";
+
+        rounds.forEach((playerList, roundIdx) => {
+            // Logic to skip the winner column in standard match drawing
+            if (roundIdx > 0 && Array.isArray(playerList) && playerList.length <= 2 && rounds[roundIdx-1].length <= 4) return;
+            if (!Array.isArray(playerList)) return;
+
+            const col = document.createElement('div');
+            col.className = 'round-col';
+            const isFinalGroup = playerList.length <= 4;
+            col.innerHTML = `<h3>${isFinalGroup ? '🏆 Grand Final' : 'Round ' + (roundIdx + 1)}</h3>`;
+
+            for (let i = 0; i < playerList.length; i += 4) {
+                const matchPlayers = playerList.slice(i, i + 4);
+                const matchDiv = document.createElement('div');
+                matchDiv.className = 'match-card';
+                
+                const advancedInNext = rounds[roundIdx+1] || [];
+
+                matchPlayers.forEach(name => {
+                    let hasAdvanced = false;
+                    let rank = null;
+
+                    if (Array.isArray(advancedInNext)) {
+                        hasAdvanced = advancedInNext.includes(name);
+                    } else { 
+                        if (advancedInNext["1st"] === name) { hasAdvanced = true; rank = 1; }
+                        if (advancedInNext["2nd"] === name) { hasAdvanced = true; rank = 2; }
+                    }
+
+                    const row = document.createElement('div');
+                    row.className = `player-row ${hasAdvanced ? 'advanced' : ''}`;
+                    
+                    let actionHtml = "";
+                    if (hasAdvanced) {
+                        // Correction Button: Clicking this resets the player and unlocks the rank slot
+                        actionHtml = `<button class="undo-btn" onclick="removePlayer('${name}', ${roundIdx})">✕</button>`;
+                    } else {
+                        if (isFinalGroup) {
+                            const p1Used = advancedInNext["1st"] != null;
+                            const p2Used = advancedInNext["2nd"] != null;
+                            
+                            // Only show Rank buttons if those slots aren't already filled
+                            actionHtml = `<div>`;
+                            if (!p1Used) actionHtml += `<button class="rank-btn-1" onclick="assignFinalRank('${name}', 1, ${roundIdx})">1st</button>`;
+                            if (!p2Used) actionHtml += `<button class="rank-btn-2" onclick="assignFinalRank('${name}', 2, ${roundIdx})">2nd</button>`;
+                            actionHtml += `</div>`;
+                            
+                            if (p1Used && p2Used) actionHtml = ""; // Full lock when both are selected
+                        } else {
+                            const advancedCount = matchPlayers.filter(p => advancedInNext.includes(p)).length;
+                            if (advancedCount < 2) {
+                                actionHtml = `<button class="advance-btn" onclick="advancePlayer('${name}', ${roundIdx})">Adv</button>`;
+                            }
+                        }
+                    }
+
+                    row.innerHTML = `<span>${name}</span>${actionHtml}`;
+                    matchDiv.appendChild(row);
+                });
+                col.appendChild(matchDiv);
+            }
+            container.appendChild(col);
+        });
+
+        // Final Podium Rendering
+        const podium = rounds[rounds.length - 1];
+        if (podium && !Array.isArray(podium)) {
+            const champCol = document.createElement('div');
+            champCol.className = 'round-col';
+            champCol.innerHTML = `<h3>👑 Podium</h3>`;
+            if (podium["1st"]) champCol.innerHTML += `<div class="player-row first-place" style="justify-content:center;">🥇 1st: ${podium["1st"]}</div>`;
+            if (podium["2nd"]) champCol.innerHTML += `<div class="player-row second-place" style="justify-content:center;">🥈 2nd: ${podium["2nd"]}</div>`;
+            container.appendChild(champCol);
+
+            if (podium["1st"] && podium["2nd"]) {
+                document.getElementById('winner-text').innerHTML = `1st: ${podium["1st"]}<br>2nd: ${podium["2nd"]}`;
+                document.getElementById('victory-overlay').style.display = 'flex';
+            }
+        }
+    }
+
+    function advancePlayer(name, currentRoundIdx) {
+        const nextRoundIdx = currentRoundIdx + 1;
+        if (!rounds[nextRoundIdx]) rounds[nextRoundIdx] = [];
+        if (!rounds[nextRoundIdx].includes(name)) {
+            rounds[nextRoundIdx].push(name);
+            renderAllRounds();
+        }
+    }
+
+    function assignFinalRank(name, rank, currentRoundIdx) {
+        const nextRoundIdx = currentRoundIdx + 1;
+        if (!rounds[nextRoundIdx] || Array.isArray(rounds[nextRoundIdx])) rounds[nextRoundIdx] = { "1st": null, "2nd": null };
+        
+        const rankKey = rank === 1 ? "1st" : "2nd";
+        rounds[nextRoundIdx][rankKey] = name;
+        renderAllRounds();
+    }
+
+    function removePlayer(name, currentRoundIdx) {
+        const nextRoundIdx = currentRoundIdx + 1;
+        const target = rounds[nextRoundIdx];
+        
+        if (Array.isArray(target)) {
+            rounds[nextRoundIdx] = target.filter(p => p !== name);
+        } else if (target && typeof target === 'object') {
+            if (target["1st"] === name) target["1st"] = null;
+            if (target["2nd"] === name) target["2nd"] = null;
+        }
+
+        // Auto-cleanup empty rounds
+        while (rounds.length > 1) {
+            const last = rounds[rounds.length - 1];
+            const isEmptyArray = Array.isArray(last) && last.length === 0;
+            const isEmptyObj = !Array.isArray(last) && typeof last === 'object' && !last["1st"] && !last["2nd"];
+            if (isEmptyArray || isEmptyObj) rounds.pop(); else break;
+        }
+        renderAllRounds();
+    }
+
+    async function exportJPG() {
+        const area = document.getElementById('capture-area');
+        const canvas = await html2canvas(area, { backgroundColor: '#1a202c', scale: 2 });
+        const link = document.createElement('a');
+        link.download = `tournament_results.jpg`;
+        link.href = canvas.toDataURL("image/jpeg", 0.9);
+        link.click();
+    }
+</script>
+</body>
+</html>
